@@ -9,10 +9,10 @@ export const getBooks = asyncHandler(async (req, res) => {
 
 export const createBook = asyncHandler(async (req, res) => {
     const {
-        body: { title, status },
+        body: { title },
     } = req;
     if (!title || !status) throw new ErrorResponse("Please provide all required fields", 400);
-    const book = await Book.create({ title, status });
+    const book = await Book.create({ title });
     res.status(201).json(book);
 });
 
@@ -27,10 +27,10 @@ export const getBookById = asyncHandler(async (req, res) => {
 
 export const updateBook = asyncHandler(async (req, res) => {
     const {
-        body: { title, content, author },
+        body: { title },
         params: { id },
     } = req;
-    const updatedBook = await Book.findByIdAndUpdate(id, { title, content, author }, { new: true });
+    const updatedBook = await Book.findByIdAndUpdate(id, { title }, { new: true });
     if (!updatedBook) throw new ErrorResponse("Book not found", 404);
     res.status(200).json(updatedBook);
 });
