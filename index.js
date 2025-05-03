@@ -11,7 +11,7 @@ app.use(express.json());
 
 // app.use("/", (req, res) => res.status(200).json({ message: "Hello World" }));
 app.use("/users", userRouter);
-app.use("/book", bookRouter);
+app.use("/books", bookRouter);
 app.use("/{*any}", (req, res) => res.status(404).json({ error: "Not Found" }));
 app.use(errorHandler);
 
