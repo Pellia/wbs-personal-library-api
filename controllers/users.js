@@ -47,7 +47,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "User deleted" });
 });
 
-export const addBook = asyncHandler(async (req, res) => {
+export const addUserBook = asyncHandler(async (req, res) => {
     const {
         body: { readingList },
         params: { id },
@@ -56,3 +56,15 @@ export const addBook = asyncHandler(async (req, res) => {
     // console.log(req.body);
     res.status(200).json(user);
 });
+
+export const updateUserBook = asyncHandler(async (req, res) => {
+    const {
+        body: { readingList },
+        params: { id, bookId },
+    } = req;
+    const user = await User.updateOne({ _id: id, "readingList.bookRefId": bookId }, { $set: { "readingList.$.status": req.body[0].status } });
+    // console.log(readingList.status);
+    res.status(200).json(user);
+});
+
+export const deleteUserBook = asyncHandler(async (req, res) => {});
