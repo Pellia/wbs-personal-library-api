@@ -9,12 +9,12 @@ export const getUsers = asyncHandler(async (req, res) => {
 
 export const createUser = asyncHandler(async (req, res) => {
     const {
-        body: { firstName, lastName, email },
+        body: { firstName, lastName, email, readingList },
     } = req;
     if (!firstName || !lastName || !email) throw new ErrorResponse("First name, last name, and email are required", 400);
     const found = await User.findOne({ email });
     if (found) throw new ErrorResponse("Email already exists", 400);
-    const user = await User.create({ firstName, lastName, email });
+    const user = await User.create({ firstName, lastName, email, readingList });
     res.status(201).json(user);
 });
 

@@ -32,7 +32,6 @@ export const updateBook = asyncHandler(async (req, res) => {
     } = req;
     const updatedBook = await Book.findByIdAndUpdate(id, { title, content, author }, { new: true });
     if (!updatedBook) throw new ErrorResponse("Book not found", 404);
-    // const bookWithAuthor = await updatedBook.populate("author", "firstName lastName");
     res.status(200).json(updatedBook);
 });
 
