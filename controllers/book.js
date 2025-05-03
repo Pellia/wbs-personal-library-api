@@ -11,7 +11,7 @@ export const createBook = asyncHandler(async (req, res) => {
     const {
         body: { title },
     } = req;
-    if (!title || !status) throw new ErrorResponse("Please provide all required fields", 400);
+    if (!title) throw new ErrorResponse("Please provide all required fields", 400);
     const book = await Book.create({ title });
     res.status(201).json(book);
 });

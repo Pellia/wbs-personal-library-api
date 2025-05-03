@@ -46,3 +46,13 @@ export const deleteUser = asyncHandler(async (req, res) => {
     if (!user) throw new ErrorResponse("User not found", 404);
     res.status(200).json({ message: "User deleted" });
 });
+
+export const addBook = asyncHandler(async (req, res) => {
+    const {
+        body: { readingList },
+        params: { id },
+    } = req;
+    const user = await User.findByIdAndUpdate(id, { $push: { readingList: req.body } }, { new: true });
+    // console.log(req.body);
+    res.status(200).json(user);
+});
