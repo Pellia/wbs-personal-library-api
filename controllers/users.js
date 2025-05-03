@@ -67,4 +67,11 @@ export const updateUserBook = asyncHandler(async (req, res) => {
     res.status(200).json(user);
 });
 
-export const deleteUserBook = asyncHandler(async (req, res) => {});
+export const deleteUserBook = asyncHandler(async (req, res) => {
+    const {
+        params: { id, bookId },
+    } = req;
+    const user = await User.updateOne({ _id: id }, { $pull: { readingList: { bookRefId: bookId } } });
+    if (!user) throw new ErrorResponse("Book not found", 404);
+    res.status(200).json({ message: "Book deleted from list" });
+});
